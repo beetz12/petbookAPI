@@ -17,6 +17,10 @@ exports.getProfile = function(req, res) {
         });
 }
 
+exports.test = function(req, res){
+    return res.send({test: "successful"});
+}
+
 exports.UpdateOrSavePetProfile = function(req, res) {
     var userID = req.params.userID;
     console.log('req.body is: ', req.body);

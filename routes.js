@@ -19,6 +19,8 @@ module.exports = function(app) {
 
 
     var User = require('./controllers/user');
+
+    app.get(PATH + 'test', User.test);
     //get entire user object profile
     app.get(PATH + 'pet/:userID', User.getProfile);
     //add or update pet profile
