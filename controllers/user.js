@@ -1,7 +1,8 @@
 var mongoose = require('mongoose'),
     User = mongoose.model('User'),
     Status = mongoose.model('Status'),
-    moment = require('moment');
+    moment = require('moment'),
+    utility = require('../data/Utility');
 
 exports.getProfile = function(req, res) {
     var userID = req.params.userID;
@@ -96,24 +97,24 @@ exports.getMoments = function(req, res) {
     // query.where('createdDate').gte(moment().subtract(4, 'hours'));
 
 
-    var location = req.headers.location;
-    console.log('location = ', location);
-    var rad = req.headers.radius;
-    console.log('rad = ', rad);
+    var location = req.body.location;
+    var rad = req.body.rad;
     //use 4/1/2015 as default date
 
     //if the location is set, find all wishes that are within (rad) miles within (location)
     if (location && rad) {
         console.log('got location and rad');
         console.log('loc is: ', location);
-        //convert location to number array
-        var locArray = location.split(',').map(function(item) {
-            return parseFloat(item);
-        });
+        // console.log('loc split is: ', location.split(','));
+        // //convert location to number array
 
-        console.log('locArray is: ', locArray);
+        // var locArray = location.split(',').map(function(item) {
+        //     return parseFloat(item);
+        // });
+
+        // console.log('locArray is: ', locArray);
         var area = {
-            center: locArray,
+            center: location,
             radius: utility.milesToRadians(rad),
             unique: true,
             spherical: true
