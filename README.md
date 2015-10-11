@@ -38,18 +38,3 @@ After you have installed all the npm packages, you can start the server by runni
 $ nodemon server.js
 ```
 
-### Running the project (from browser)
-To run the project for the first time, switch to the Petbook repository and run the following command: 
-```sh
-$ ionic serve
-```
-
-
-### Running the project from IOS simulator 
-To run the project on IOS for the first time, run the following commands: 
-```sh
-$ npm install ios-sim -g
-$ ionic platform add ios
-$ ionic build ios
-$ ionic run ios
-```
