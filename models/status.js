@@ -12,12 +12,14 @@ var StatusSchema = new Schema({
         type: String,
         required: true
     },
-    likes: Number,
+    likedBy: [{ type: Schema.Types.ObjectId, ref: 'User' }],
     createdDate: {
         type: Date,
         default: Date.now
     },
     location: [Number]
+
+    
 });
 
 mongoose.model('Status', StatusSchema);
