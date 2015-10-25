@@ -85,7 +85,7 @@ exports.makeNewPost = function(req, res) {
 exports.getMoments = function(req, res) {
     console.log('get moments');
 	var userID = req.body.userID;
-    var query = Status.find({});
+    var query = Status.find({}).populate('_Owner');
     //     _Owner: {
     //         '$ne': userID
     //     }

@@ -31,6 +31,7 @@ var UserSchema = new Schema({
 
     pet: {
         name: String,
+
         age: Number,
         dob: Date,
         breed: String,
