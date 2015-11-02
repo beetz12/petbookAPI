@@ -39,12 +39,16 @@ exports.UpdateOrSavePetProfile = function(req, res) {
     var field = Object.keys(req.body)[0];
     var value = req.body[field];
     var combinedName = "pet." + field;
+    console.log('field is: ', field);
+    console.log('value is: ', value);
+    console.log('combinedName is: ', combinedName);
+
+    var petUpdate = {};
+    petUpdate[combinedName] = value;
 
 
     var updateOptions = {
-        $set: {
-            combinedName: value
-        }
+        $set: petUpdate
     };
 
     User.update({
