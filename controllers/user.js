@@ -18,8 +18,10 @@ exports.getProfile = function(req, res) {
         });
 }
 
-exports.test = function(req, res){
-    return res.send({test: "successful"});
+exports.test = function(req, res) {
+    return res.send({
+        test: "successful"
+    });
 }
 
 exports.UpdateOrSavePetProfile = function(req, res) {
@@ -34,12 +36,12 @@ exports.UpdateOrSavePetProfile = function(req, res) {
     //     new: true
     // };
 
-   
-   var updateOptions = { 
-    $set: pet {
-        req.body
-    }
-   };
+
+    var updateOptions = {
+        $set: {
+            pet: req.body
+        }
+    };
 
     User.update({
             _id: userID
@@ -90,7 +92,7 @@ exports.makeNewPost = function(req, res) {
 
 exports.getMoments = function(req, res) {
     console.log('get moments');
-	var userID = req.body.userID;
+    var userID = req.body.userID;
     var query = Status.find({}).populate('_Owner');
     //     _Owner: {
     //         '$ne': userID
@@ -99,7 +101,7 @@ exports.getMoments = function(req, res) {
 
     //get statuses in the last 4 hours
 
-// created >= now - 4 hours
+    // created >= now - 4 hours
     // query.where('createdDate').gte(moment().subtract(4, 'hours'));
 
 
