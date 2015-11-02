@@ -36,7 +36,9 @@ exports.UpdateOrSavePetProfile = function(req, res) {
 
    
    var updateOptions = { 
-    $set: req.body
+    $set: pet {
+        req.body
+    }
    };
 
     User.update({
