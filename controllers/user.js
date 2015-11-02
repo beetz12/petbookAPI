@@ -29,19 +29,15 @@ exports.UpdateOrSavePetProfile = function(req, res) {
         pet: req.body
     };
 
-    // var updateOptions = {
-    //     upsertData: false,
-    //     new: true
-    // };
+    var updateOptions = {
+        upsertData: false,
+        new: true
+    };
 
-   
-   var updateOptions = { 
-    $set: req.body
-   };
-
-    User.update({
+    User.findOneAndUpdate({
             _id: userID
         },
+        upsertData,
         updateOptions,
         function(err, data) {
             if (err) {
