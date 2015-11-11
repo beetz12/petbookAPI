@@ -113,31 +113,31 @@ exports.getMoments = function(req, res) {
     // query.where('createdDate').gte(moment().subtract(4, 'hours'));
 
 
-    var location = req.body.location;
-    var rad = req.body.rad;
-    //use 4/1/2015 as default date
+    // var location = req.body.location;
+    // var rad = req.body.rad;
+    // //use 4/1/2015 as default date
 
-    //if the location is set, find all wishes that are within (rad) miles within (location)
-    if (location && rad) {
-        console.log('got location and rad');
-        console.log('loc is: ', location);
-        // console.log('loc split is: ', location.split(','));
-        // //convert location to number array
+    // //if the location is set, find all wishes that are within (rad) miles within (location)
+    // if (location && rad) {
+    //     console.log('got location and rad');
+    //     console.log('loc is: ', location);
+    //     // console.log('loc split is: ', location.split(','));
+    //     // //convert location to number array
 
-        // var locArray = location.split(',').map(function(item) {
-        //     return parseFloat(item);
-        // });
+    //     // var locArray = location.split(',').map(function(item) {
+    //     //     return parseFloat(item);
+    //     // });
 
-        // console.log('locArray is: ', locArray);
-        var area = {
-            center: location,
-            radius: utility.milesToRadians(rad),
-            unique: true,
-            spherical: true
-        };
-        query.where('location').within().circle(area);
+    //     // console.log('locArray is: ', locArray);
+    //     var area = {
+    //         center: location,
+    //         radius: utility.milesToRadians(rad),
+    //         unique: true,
+    //         spherical: true
+    //     };
+    //     query.where('location').within().circle(area);
 
-    }
+    // }
 
     query.exec(function(err, data) {
         if (err) {
