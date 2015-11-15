@@ -5,9 +5,10 @@ var StatusSchema = new Schema({
 
     commentBy: { 
     	type: Schema.Types.ObjectId, 
-    	ref: 'User' 
+    	ref: 'User',
+    	required: true
     },
-    
+
     comment: {
     	type: String,
     	required: true
