@@ -1,7 +1,7 @@
 var mongoose = require('mongoose'),
     Schema = mongoose.Schema;
 
-var StatusSchema = new Schema({
+var CommentSchema = new Schema({
 
     commentBy: { 
     	type: Schema.Types.ObjectId, 
@@ -21,6 +21,6 @@ var StatusSchema = new Schema({
     
 });
 
-mongoose.model('Status', StatusSchema);
+mongoose.model('Comment', CommentSchema);
 
 
