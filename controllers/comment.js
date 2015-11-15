@@ -4,17 +4,20 @@ var mongoose = require('mongoose'),
     moment = require('moment'),
     utility = require('../data/Utility');
 
-exports.likePost = function(req, res) {
+
+exports.addComment = function(req, res) {
     var statusID = req.params.statusID;
     // console.log('status is: ', statusID);
     var userID = req.params.userID;
     //assigns the user as the donor
+    
+    var comment = req.params.comment;
 
     var filter = {
     	_id: statusID
     }
     var updateObj = {
-    	$push: { likedBy: userID }
+    	$push: { comments: [userID, comment] }
     }
 
     updateObj._Owner = userID;
