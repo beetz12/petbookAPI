@@ -14,10 +14,7 @@ var StatusSchema = new Schema({
     },
     likedBy: [{ type: Schema.Types.ObjectId, ref: 'User' }],
     
-    comments:[{
-    	type: Schema.Types.ObjectId, 
-    	ref: 'Comment'
-    }],
+    comments:[{type: Schema.Types.ObjectId, ref: 'Comment'}],
     
     createdDate: {
         type: Date,
