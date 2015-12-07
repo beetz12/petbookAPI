@@ -36,6 +36,7 @@ module.exports = function(app) {
     //like a post 
     app.post(PATH + 'status/:statusID/likes/:userID', Status.likePost);
 
+    app.post(PATH + 'status/:statusID/disLikes/:userID', Status.disLikePost);
     //get other people's status updates (fulfill a wish)
     app.post(PATH + 'status', User.getMoments);
 
