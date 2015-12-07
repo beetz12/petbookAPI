@@ -17,7 +17,7 @@ exports.likePost = function(req, res) {
     	$push: { likedBy: userID }
     }
 
-    updateObj._Owner = userID;
+//    updateObj._Owner = userID;
     console.log('b4 create');
     Status.update(filter, updateObj,
     	function(err, results) {
