@@ -47,6 +47,7 @@ passport.serializeUser(function(user, done) {
 
 require('./models/user');
 require('./models/status');
+require('./models/comment');
 
 
 var localStrategy = require('./services/auth/localAuth');
