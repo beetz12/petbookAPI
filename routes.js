@@ -39,8 +39,13 @@ module.exports = function(app) {
     //like a post 
     app.post(PATH + 'status/:statusID/likes/:userID', Status.likePost);
 
+    app.post(PATH + 'status/:statusID/disLikes/:userID', Status.disLikePost);
     //get other people's status updates (fulfill a wish)
     app.post(PATH + 'status', User.getMoments);
 
-
+    var Comment = require('./controllers/comment');
+    // add a new comment for a status
+    app.post(PATH + 'status/:statusID/comment', Comment.addComment);    
+    // get all comments from one status
+    app.get(PATH + 'status/:statusID/comments', Comment.getComments);
 };
