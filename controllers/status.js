@@ -56,5 +56,3 @@ exports.disLikePost = function(req, res) {
         }
     }); 
 }
-
-}
