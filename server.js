@@ -6,9 +6,9 @@ var passport = require('passport');
 var morgan = require('morgan');
 
 
-// var mongoUri = 'mongodb://v3user:test123@ds035563.mongolab.com:35563/v3-dev';
+var mongoUri = 'mongodb://v3user:test123@ds035563.mongolab.com:35563/v3-dev';
 //prod URL
-var mongoUri = 'mongodb://prodUser:prodSecret@ds053194.mongolab.com:53194/petbookprod';
+// var mongoUri = 'mongodb://prodUser:prodSecret@ds053194.mongolab.com:53194/petbookprod';
 
 mongoose.connect(mongoUri);
 var db = mongoose.connection;

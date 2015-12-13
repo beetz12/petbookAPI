@@ -100,35 +100,32 @@ exports.makeNewPost = function(req, res) {
 
 exports.getMoments = function(req, res) {
     console.log('get moments');
-    var userID = req.body.userID;
-    var query = Status.find({}).populate('_Owner');
+    var userID = req.body.userID;    
+    var offset = req.body.offset || 0;
+    var query = Status.find({}).skip(offset).limit(25).populate('_Owner');
+
+
     //     _Owner: {
     //         '$ne': userID
     //     }
     // });
 
-    //get statuses in the last 4 hours
+    // get statuses in the last 4 hours
 
     // created >= now - 4 hours
     // query.where('createdDate').gte(moment().subtract(4, 'hours'));
 
 
-    // var location = req.body.location;
-    // var rad = req.body.rad;
-    // //use 4/1/2015 as default date
+    var location = req.body.location;
+    var rad = req.body.rad;
 
-    // //if the location is set, find all wishes that are within (rad) miles within (location)
+    //use 4/1/2015 as default date
+
+    //if the location is set, find all wishes that are within (rad) miles within (location)
     // if (location && rad) {
     //     console.log('got location and rad');
     //     console.log('loc is: ', location);
-    //     // console.log('loc split is: ', location.split(','));
-    //     // //convert location to number array
-
-    //     // var locArray = location.split(',').map(function(item) {
-    //     //     return parseFloat(item);
-    //     // });
-
-    //     // console.log('locArray is: ', locArray);
+       
     //     var area = {
     //         center: location,
     //         radius: utility.milesToRadians(rad),
