@@ -122,19 +122,19 @@ exports.getMoments = function(req, res) {
     //use 4/1/2015 as default date
 
     //if the location is set, find all wishes that are within (rad) miles within (location)
-    // if (location && rad) {
-    //     console.log('got location and rad');
-    //     console.log('loc is: ', location);
+    if (location && rad) {
+        console.log('got location and rad');
+        console.log('loc is: ', location);
        
-    //     var area = {
-    //         center: location,
-    //         radius: utility.milesToRadians(rad),
-    //         unique: true,
-    //         spherical: true
-    //     };
-    //     query.where('location').within().circle(area);
+        var area = {
+            center: location,
+            radius: utility.milesToRadians(rad),
+            unique: true,
+            spherical: true
+        };
+        query.where('location').within().circle(area);
 
-    // }
+    }
 
     query.exec(function(err, data) {
         if (err) {
