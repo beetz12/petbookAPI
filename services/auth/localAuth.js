@@ -14,6 +14,9 @@ exports.login = new LocalStrategy(strategyOptions, function(req, username, passw
         username: username
     };
 
+    console.log('username = ', username);
+    console.log('password = ', password);
+
     User.findOne(searchUser, function(err, user) {
         if (err) return done(err);
 

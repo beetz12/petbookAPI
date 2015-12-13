@@ -32,6 +32,9 @@ module.exports = function(app) {
     //make new post 
     app.post(PATH + 'status/:userID', User.makeNewPost);
 
+    //upload profie avatar
+    // app.post(PATH + 'status/:userID', User.uploadAvatarImg);
+
     var Status = require('./controllers/status');
     //like a post 
     app.post(PATH + 'status/:statusID/likes/:userID', Status.likePost);
@@ -40,11 +43,9 @@ module.exports = function(app) {
     //get other people's status updates (fulfill a wish)
     app.post(PATH + 'status', User.getMoments);
 
-    
     var Comment = require('./controllers/comment');
     // add a new comment for a status
     app.post(PATH + 'status/:statusID/comment', Comment.addComment);    
     // get all comments from one status
     app.get(PATH + 'status/:statusID/comments', Comment.getComments);
-    
 };
