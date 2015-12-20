@@ -40,7 +40,10 @@ module.exports = function(app) {
     //get other people's status updates (fulfill a wish)
     app.post(PATH + 'status', User.getMoments);
 
-    
+    var SendEmails = require('./controllers/sendEmails');
+    //send signup confirmation email
+    app.post(PATH + 'emails/signup/:userID', SendEmails.signupConfirmation); //sign up emails
+
     var Comment = require('./controllers/comment');
     // add a new comment for a status
     app.post(PATH + 'status/:statusID/comment', Comment.addComment);    
