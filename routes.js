@@ -45,7 +45,7 @@ module.exports = function(app) {
 
     var Comment = require('./controllers/comment');
     // add a new comment for a status
-    app.post(PATH + 'status/:statusID/comment', Comment.addComment);    
+    app.post(PATH + 'status/:statusID/comment/:userID', Comment.addComment);    
     // get all comments from one status
     app.get(PATH + 'status/:statusID/comments', Comment.getComments);
 };

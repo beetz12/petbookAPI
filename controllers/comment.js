@@ -8,11 +8,11 @@ var mongoose = require('mongoose'),
 
 exports.addComment = function(req, res) {
 //	POST
-//	http://localhost:8080/api/status/563684f2853e6411003a1a2f/comment
+//	http://localhost:8080/api/status/563684f2853e6411003a1a2f/comment/userIDxxxxxx
 	
 	// statusID is retrieved from url
 	var statusID = req.params.statusID;
-	var commentUserID = req.body.userID;
+	var commentUserID = req.params.userID;
 	var commentMsg = req.body.comment;
 
 	// find the status to add new comment

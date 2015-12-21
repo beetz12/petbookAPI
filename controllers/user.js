@@ -1,8 +1,11 @@
 var mongoose = require('mongoose'),
     User = mongoose.model('User'),
     Status = mongoose.model('Status'),
+    Comment = mongoose.model('Comment'),
     moment = require('moment'),
     utility = require('../data/Utility');
+
+//var deepPopulate = require('mongoose-deep-populate')(mongoose);
 
 exports.getProfile = function(req, res) {
     var userID = req.params.userID;
@@ -67,17 +70,37 @@ exports.UpdateOrSavePetProfile = function(req, res) {
 
 exports.getMyPosts = function(req, res) {
     var userID = req.params.userID;
+    
+//    Status.find({_Owner: userID})
+//    	.populate('comments')
+//    	.exec(function(err, data) {
+//            if (err) {
+//                return utility.handleError(res, err);
+//            } else {
+//                return res.send(data);
+//            }
+//        });
+    
+    Status.find({_Owner: userID}).lean().populate('comments').exec(
+    	  function (err, docs) {
+    			if(err){
+    				return utility.handleError(res, err);
+    			}
 
-    Status.find({
-            _Owner: userID
-        },
-        function(err, data) {
-            if (err) {
-                return utility.handleError(res, err);
-            } else {
-                return res.send(data);
-            }
-        });
+    	  Comment.populate(docs, {
+    	    path: 'comments.commentBy',
+    	    select: 'username',
+    	    model: User
+    	  }, function(err, data) {
+              if (err) {
+                  return utility.handleError(res, err);
+              } else {
+                  return res.send(data);
+              }
+          });
+    	});
+    
+    
 }
 
 exports.makeNewPost = function(req, res) {
@@ -102,7 +125,7 @@ exports.getMoments = function(req, res) {
     console.log('get moments');
     var userID = req.body.userID;    
     var offset = req.body.offset || 0;
-    var query = Status.find({}).skip(offset).limit(25).populate('_Owner');
+    var query = Status.find({}).skip(offset).limit(25).lean().populate('_Owner comments');
 
 
     //     _Owner: {
@@ -136,11 +159,26 @@ exports.getMoments = function(req, res) {
 
     }
 
-    query.exec(function(err, data) {
+    query.exec(function(err, docs) {
+		if (err) {
+		    return utility.handleError(res, err);
+		} 
+        
+	  Comment.populate(docs, {
+	    path: 'comments.commentBy',
+	    select: 'username',
+	    model: User
+	  }, function(err, data) {
         if (err) {
             return utility.handleError(res, err);
         } else {
             return res.send(data);
         }
+    });        
+
+
+        
+        
+        
     });
 }

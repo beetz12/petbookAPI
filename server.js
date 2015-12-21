@@ -12,10 +12,10 @@ var mongoUri = 'mongodb://v3user:test123@ds035563.mongolab.com:35563/v3-dev';
 
 mongoose.connect(mongoUri);
 var db = mongoose.connection;
-
 db.on('error', function() {
     throw new Error('unable to connect to database at ' + mongoUri);
 });
+
 
 var app = express();
 var server = require('http').createServer(app);
