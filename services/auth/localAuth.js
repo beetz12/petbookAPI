@@ -9,7 +9,7 @@ var strategyOptions = {
 };
 
 exports.login = new LocalStrategy(strategyOptions, function(req, username, password, done) {
-    username = username.toLowerCase();
+    username = username.trim().toLowerCase();
     var searchUser = {
         username: username
     };
@@ -37,7 +37,7 @@ exports.login = new LocalStrategy(strategyOptions, function(req, username, passw
 });
 
 exports.register = new LocalStrategy(strategyOptions, function(req, userName, password, done) {
-    userName  = userName.toLowerCase();
+    userName  = userName.trim().toLowerCase();
     var searchUser = {
         email: req.body.email
     };
