@@ -25,6 +25,16 @@ var UserSchema = new Schema({
     password: {
         type: String,
         required: true,
+    }, 
+    needsToChangePassword: {
+        type: Boolean,
+        default: false
+    },
+
+    status: {
+        type: String,
+        //valid values are: pending, active, disabled
+        default: 'pending'
     },
 
     phone: String,

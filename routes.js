@@ -7,7 +7,6 @@ module.exports = function(app) {
 
     //auth functions
 
-
     app.post(PATH + 'register', passport.authenticate('local-register', {
         failureFlash: false,
     }), function(req, res) {
@@ -16,6 +15,14 @@ module.exports = function(app) {
     app.post(PATH + 'login', passport.authenticate('local-login'), function(req, res) {
         createSendToken(req.user, res);
     });
+
+    var Auth = require('./controllers/auth');
+    app.post(PATH + 'auth/activation', Auth.Activate);
+    app.post(PATH + 'auth/forgotAndResetPassword', Auth.ForgotAndResetPassword);
+    app.post(PATH + 'auth/changePassword', Auth.ChangePassword);
+    
+    // app.post(PATH + 'auth/canResetPassword', Auth.CanResetPassword);
+    // app.post(PATH + 'auth/resetPassword', Auth.ResetPassword);
 
 
     var User = require('./controllers/user');
@@ -31,6 +38,10 @@ module.exports = function(app) {
 
     //make new post 
     app.post(PATH + 'status/:userID', User.makeNewPost);
+
+    //check for duplicate email and username
+    app.post(PATH + 'user/isEmailUnique', User.isEmailUnique);
+    app.post(PATH + 'user/isUserNameUnique', User.isUserNameUnique);
 
     //upload profie avatar
     // app.post(PATH + 'status/:userID', User.uploadAvatarImg);
