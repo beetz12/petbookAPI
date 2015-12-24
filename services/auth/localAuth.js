@@ -9,10 +9,13 @@ var strategyOptions = {
 };
 
 exports.login = new LocalStrategy(strategyOptions, function(req, username, password, done) {
-
+    username = username.trim().toLowerCase();
     var searchUser = {
         username: username
     };
+
+    // console.log('username = ', username);
+    // console.log('password = ', password);
 
     User.findOne(searchUser, function(err, user) {
         if (err) return done(err);
@@ -34,11 +37,10 @@ exports.login = new LocalStrategy(strategyOptions, function(req, username, passw
 });
 
 exports.register = new LocalStrategy(strategyOptions, function(req, userName, password, done) {
-    console.log('in register');
+    userName  = userName.trim().toLowerCase();
     var searchUser = {
         email: req.body.email
     };
-
     var searchUser2 = {
         username: userName
     };

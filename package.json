@@ -19,6 +19,7 @@
     "passport-facebook": "^2.0.0",
     "passport-local": "^1.0.0",
     "q": "^1.4.1",
+    "s3": "git+https://github.com/andrewrk/node-s3-client.git",
     "yargs": "^3.10.0"
   },
   "devDependencies": {
