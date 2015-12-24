@@ -40,7 +40,8 @@ exports.ChangePassword = function(req, res) {
                       } else {
                           hashedNewPassword = data;
                           var update = {
-                                  password: hashedNewPassword
+                                  password: hashedNewPassword,
+                                  needsToChangePassword: false
                           };
                           
                           User.findOneAndUpdate({
