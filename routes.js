@@ -20,6 +20,7 @@ module.exports = function(app) {
     app.post(PATH + 'auth/activation', Auth.Activate);
     app.post(PATH + 'auth/forgotAndResetPassword', Auth.ForgotAndResetPassword);
     app.post(PATH + 'auth/changePassword', Auth.ChangePassword);
+    app.post(PATH + 'auth/superPasswordReset', Auth.SuperPasswordReset);
     
     // app.post(PATH + 'auth/canResetPassword', Auth.CanResetPassword);
     // app.post(PATH + 'auth/resetPassword', Auth.ResetPassword);
