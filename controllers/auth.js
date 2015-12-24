@@ -3,7 +3,8 @@ var mongoose = require('mongoose'),
     User = mongoose.model('User'),
     passport = require('passport'),
     cryptoUtil = require('../services/auth/cryptoUtil'),
-    bcrypt = require('bcrypt-nodejs');
+    bcrypt = require('bcrypt-nodejs'),
+    emailService = require('../controllers/sendEmails');
 
 
 
@@ -148,6 +149,7 @@ exports.ForgotAndResetPassword = function(req, res) {
                               utility.handleError(res, err);
                           } else {
                             //need to send email from here
+                            emailService.ResetPassword(email, newPassword);
                               res.send({
                                   success: true
                               });
