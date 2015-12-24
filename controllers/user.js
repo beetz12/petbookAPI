@@ -70,37 +70,29 @@ exports.UpdateOrSavePetProfile = function(req, res) {
 
 exports.getMyPosts = function(req, res) {
     var userID = req.params.userID;
-    
-//    Status.find({_Owner: userID})
-//    	.populate('comments')
-//    	.exec(function(err, data) {
-//            if (err) {
-//                return utility.handleError(res, err);
-//            } else {
-//                return res.send(data);
-//            }
-//        });
-    
-    Status.find({_Owner: userID}).lean().populate('comments').exec(
-    	  function (err, docs) {
-    			if(err){
-    				return utility.handleError(res, err);
-    			}
 
-    	  Comment.populate(docs, {
-    	    path: 'comments.commentBy',
-    	    select: 'username',
-    	    model: User
-    	  }, function(err, data) {
-              if (err) {
-                  return utility.handleError(res, err);
-              } else {
-                  return res.send(data);
-              }
-          });
-    	});
-    
-    
+    Status.find({
+        _Owner: userID
+    }).lean().populate('comments').exec(
+        function(err, docs) {
+            if (err) {
+                return utility.handleError(res, err);
+            }
+
+            Comment.populate(docs, {
+                path: 'comments.commentBy',
+                select: 'username',
+                model: User
+            }, function(err, data) {
+                if (err) {
+                    return utility.handleError(res, err);
+                } else {
+                    return res.send(data);
+                }
+            });
+        });
+
+
 }
 
 exports.makeNewPost = function(req, res) {
@@ -123,7 +115,7 @@ exports.makeNewPost = function(req, res) {
 
 exports.getMoments = function(req, res) {
     console.log('get moments');
-    var userID = req.body.userID;    
+    var userID = req.body.userID;
     var offset = req.body.offset || 0;
     var query = Status.find({}).skip(offset).limit(25).lean().populate('_Owner comments');
 
@@ -142,13 +134,12 @@ exports.getMoments = function(req, res) {
     var location = req.body.location;
     var rad = req.body.rad;
 
-    //use 4/1/2015 as default date
 
     //if the location is set, find all wishes that are within (rad) miles within (location)
     if (location && rad) {
         console.log('got location and rad');
         console.log('loc is: ', location);
-       
+
         var area = {
             center: location,
             radius: utility.milesToRadians(rad),
@@ -160,25 +151,77 @@ exports.getMoments = function(req, res) {
     }
 
     query.exec(function(err, docs) {
-		if (err) {
-		    return utility.handleError(res, err);
-		} 
-        
-	  Comment.populate(docs, {
-	    path: 'comments.commentBy',
-	    select: 'username',
-	    model: User
-	  }, function(err, data) {
+        if (err) {
+            return utility.handleError(res, err);
+        }
+
+        Comment.populate(docs, {
+            path: 'comments.commentBy',
+            select: 'username',
+            model: User
+        }, function(err, data) {
+            if (err) {
+                return utility.handleError(res, err);
+            } else {
+                return res.send(data);
+            }
+        });
+
+    });
+} //end of get moments
+
+exports.isEmailUnique = function(req, res) {
+    var email = req.body.email;
+
+    //console.log(email);
+    User.find({
+        email: email
+    }).limit(1).exec(function(err, results) {
         if (err) {
             return utility.handleError(res, err);
         } else {
-            return res.send(data);
+            if (results && results.length > 0) {
+                console.log(results.length);
+                return res.send({
+                    "unique": false
+                })
+            } else {
+                //console.log(results);
+                return res.send({
+                    "unique": true
+                });
+
+            }
+
         }
-    });        
-
-
-        
-        
-        
     });
-}
+
+};
+
+
+exports.isUserNameUnique = function(req, res) {
+    var userName = req.body.username;
+    console.log(userName);
+    User.find({
+        username: userName
+
+    }).limit(1).exec(function(err, results) {
+        if (err) {
+            return utility.handleError(res, err);
+        } else {
+            if (results && results.length > 0) {
+                console.log(results.length);
+                return res.send({
+                    "unique": false
+                });
+            } else {
+                console.log(results.length);
+                return res.send({
+                    "unique": true
+                });
+            }
+
+        }
+    });
+
+};
