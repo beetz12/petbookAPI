@@ -9,10 +9,9 @@ var mongoose = require('mongoose'),
 
 exports.ChangePassword = function(req, res) {
     
-    var userName = req.body.user_name;
+    var userName = req.body.username;
     var newPassword = req.body.newPass;
     var oldPassword = req.body.oldPass;
-    var userID = req.body._id
     
     var searchUser = {
             username: userName
@@ -45,10 +44,10 @@ exports.ChangePassword = function(req, res) {
                           };
                           
                           User.findOneAndUpdate({
-                              _id: userID
+                              username: userName
                           }, update, function(err, data) {
                               if (err) {
-                                  res.send({errorMsg: 'error update'});
+                                  return utility.handleError(res, err);
                               } else {
                                   res.send({
                                       success: true

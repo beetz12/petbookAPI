@@ -200,7 +200,7 @@ exports.isEmailUnique = function(req, res) {
 
 
 exports.isUserNameUnique = function(req, res) {
-    var userName = req.body.userName;
+    var userName = req.body.username;
     console.log(userName);
     User.find({
         username: userName
