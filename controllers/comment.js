@@ -51,7 +51,7 @@ exports.addComment = function(req, res) {
         	// the next step is to add this commentID into status comments list
         	// 1. find the statusID that status needs to be updated
         	// 2. add the commentID in updateObj then update the status
-        	Status.findByIdAndUpdate(statusID, updateObj,function(err, results) {
+        	Status.findByIdAndUpdate(statusID, updateObj, {new: true}, function(err, results) {
 	                if (err) {
 	                    console.log('in err', err);
 	                    return utility.handleError(results, err);
