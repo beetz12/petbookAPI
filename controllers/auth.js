@@ -3,7 +3,8 @@ var mongoose = require('mongoose'),
     User = mongoose.model('User'),
     passport = require('passport'),
     cryptoUtil = require('../services/auth/cryptoUtil'),
-    bcrypt = require('bcrypt-nodejs');
+    bcrypt = require('bcrypt-nodejs'),
+    emailService = require('../controllers/sendEmails');
 
 
 
@@ -62,8 +63,6 @@ exports.ChangePassword = function(req, res) {
             }
         
     });
-    
-
     
 }; // end of ChangePassword
 
@@ -143,6 +142,56 @@ exports.ForgotAndResetPassword = function(req, res) {
                       
                       User.findOneAndUpdate({
                           email: email
+                      }, update, function(err, data) {
+                          if (err) {
+                              utility.handleError(res, err);
+                          } else {
+                            //need to send email from here
+                            emailService.ResetPassword(email, newPassword);
+                              res.send({
+                                  success: true
+                              });
+                          }
+                      });                          
+                  }
+              }); // end of hashPassword
+            } else {
+                 res.send({
+                      success: false
+                  });
+            } 
+
+        }); //end of find one
+};
+
+//allows super user to reset anyone's password
+exports.SuperPasswordReset = function(req, res) {
+    var userName = req.body.username ? req.body.username : 'testpetbook'; //deafults the username to testbook if it's not provided
+    // var hasKey = req.body.key === 'test123';
+    var newPassword = req.body.password;
+    // if(!hasKey){
+    //     return utility.handleAuthFailure(res, err);
+    // }
+
+    User.findOne({
+            username: userName
+        },
+        function(err, dbUser) {
+            if (dbUser) {
+
+              cryptoUtil.hashPassword(newPassword).then(function(hashedNewPassword, err) {
+                  if (err) {
+                      return res.send({
+                          success: false
+                      });
+                  } else {
+                      var update = {
+                          password: hashedNewPassword,
+                          needsToChangePassword: false
+                      };
+                      
+                      User.findOneAndUpdate({
+                          username: userName
                       }, update, function(err, data) {
                           if (err) {
                               utility.handleError(res, err);

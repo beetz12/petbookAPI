@@ -20,6 +20,7 @@ module.exports = function(app) {
     app.post(PATH + 'auth/activation', Auth.Activate);
     app.post(PATH + 'auth/forgotAndResetPassword', Auth.ForgotAndResetPassword);
     app.post(PATH + 'auth/changePassword', Auth.ChangePassword);
+    app.post(PATH + 'auth/superPasswordReset', Auth.SuperPasswordReset);
     
     // app.post(PATH + 'auth/canResetPassword', Auth.CanResetPassword);
     // app.post(PATH + 'auth/resetPassword', Auth.ResetPassword);
@@ -53,6 +54,10 @@ module.exports = function(app) {
     app.post(PATH + 'status/:statusID/disLikes/:userID', Status.disLikePost);
     //get other people's status updates (fulfill a wish)
     app.post(PATH + 'status', User.getMoments);
+
+    var SendEmails = require('./controllers/sendEmails');
+    //send signup confirmation email
+    app.post(PATH + 'emails/signup/:userID', SendEmails.signupConfirmation); //sign up emails
 
     var Comment = require('./controllers/comment');
     // add a new comment for a status
