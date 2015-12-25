@@ -155,7 +155,11 @@ exports.ForgotAndResetPassword = function(req, res) {
                       });                          
                   }
               }); // end of hashPassword
-            }
+            } else {
+                 res.send({
+                      success: false
+                  });
+            } 
 
         }); //end of find one
 };
