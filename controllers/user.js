@@ -117,8 +117,7 @@ exports.getMoments = function(req, res) {
     console.log('get moments');
     var userID = req.body.userID;
     var offset = req.body.offset || 0;
-    var query = Status.find({}).skip(offset).limit(25).lean().populate('_Owner comments');
-
+    var query = Status.find({}).lean().populate('_Owner comments');
 
     //     _Owner: {
     //         '$ne': userID
