@@ -20,7 +20,8 @@
     "passport-local": "^1.0.0",
     "q": "^1.4.1",
     "s3": "git+https://github.com/andrewrk/node-s3-client.git",
-    "yargs": "^3.10.0"
+    "yargs": "^3.10.0",
+    "aws-sdk": "*"
   },
   "devDependencies": {
     "bower": "^1.3.3",

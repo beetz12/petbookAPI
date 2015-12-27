@@ -47,6 +47,10 @@ module.exports = function(app) {
     //upload profie avatar
     // app.post(PATH + 'status/:userID', User.uploadAvatarImg);
 
+    //file upload
+    var S3Upload = require('./controllers/s3Upload');
+    app.get(PATH + 'uploadFile', S3Upload.SignS3);
+
     var Status = require('./controllers/status');
     //like a post 
     app.post(PATH + 'status/:statusID/likes/:userID', Status.likePost);
