@@ -20,6 +20,7 @@
     "passport-local": "^1.0.0",
     "q": "^1.4.1",
     "s3": "git+https://github.com/andrewrk/node-s3-client.git",
+    "socket.io": "^1.4.4",
     "yargs": "^3.10.0"
   },
   "devDependencies": {
