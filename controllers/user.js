@@ -101,6 +101,9 @@ exports.makeNewPost = function(req, res) {
     //assigns the user as the donor
     var updateObj = req.body;
     updateObj._Owner = userID;
+    // add creator's userID to notificationGroup
+    updateObj.notificationGroup = userID;
+    
     console.log('b4 create');
     Status.create(updateObj, function(err, results) {
         if (err) {
@@ -111,6 +114,10 @@ exports.makeNewPost = function(req, res) {
             return res.send(results);
         }
     });
+    
+
+
+    
 }
 
 exports.getMoments = function(req, res) {
