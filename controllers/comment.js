@@ -36,17 +36,15 @@ exports.addComment = function(req, res) {
         	
         	// here we get the newly generated commentID
         	var commentID = results._id;
+        	var commentByID = results.commentBy;
 //            return res.send({
 //                message: commentID
 //            });	
             
         	var updateObj = {
-        		$push: { comments:commentID}
-        	};
+        		$push: { comments: commentID, notificationGroup: commentByID }
         	
-//        	console.log('show vars before status update');
-//        	console.log(statusID);
-//        	console.log(updateObj);
+        	};
         	
         	// the next step is to add this commentID into status comments list
         	// 1. find the statusID that status needs to be updated
@@ -63,14 +61,6 @@ exports.addComment = function(req, res) {
         	
         }
       });
-	
-//    return res.send({
-//        message: commentID
-//    });	
-   // add this comment to the status
-   // status: statusID, ownerID, location, createdDate, likedBy[], comments[]
-    
-//    Status.update();
     
 }
 
