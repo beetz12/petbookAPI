@@ -16,6 +16,8 @@ var StatusSchema = new Schema({
     
     comments:[{type: Schema.Types.ObjectId, ref: 'Comment'}],
     
+    notificationGroup:[{type: Schema.Types.ObjectId, ref: 'User'}],
+    
     createdDate: {
         type: Date,
         default: Date.now
