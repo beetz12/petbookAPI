@@ -24,6 +24,10 @@ exports.addComment = function(req, res) {
     	commentBy: commentUserID,
 	    comment: commentMsg 
 	  }
+	
+	// get notificationGroup list
+	
+	
 	// use mongoose method to generate a new comment
 	// comment: _id, CommentBy, Comment, CreatedDate
     var promise = Comment.create(insertObj, function(err, results) {
@@ -41,6 +45,7 @@ exports.addComment = function(req, res) {
 //                message: commentID
 //            });	
             
+        	// commentByID could be added correctly, but notificationGroup should be unique. bug here needs to be fixed.
         	var updateObj = {
         		$push: { comments: commentID, notificationGroup: commentByID }
         	
@@ -58,6 +63,9 @@ exports.addComment = function(req, res) {
 	                    return res.send(results);
 	                }
 	        });       
+        	
+        	// send notification to user group
+        	
         	
         }
       });
